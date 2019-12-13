@@ -81,11 +81,13 @@ class SortingRobot:
         Turn on the robot's light
         """
         self._light = "ON"
+
     def set_light_off(self):
         """
         Turn off the robot's light
         """
         self._light = "OFF"
+
     def light_is_on(self):
         """
         Returns True if the robot's light is on and False otherwise.
@@ -96,15 +98,83 @@ class SortingRobot:
         """
         Sort the robot's list.
         """
-        # Fill this out
-        pass
+        # print(
+        # f'\n********\nNEW TEST ({len(self._list)} items)\nFirst item: {self._list[0]}\n********\n')
+
+        while self.light_is_on() == False:
+            # Initiate the sort
+            # Turn light on bec we're about to swap None with the first item
+            self.set_light_on()
+
+            while self.can_move_right():
+                self.swap_item()
+                # print(f'Picked up {self._item}')
+                self.move_right()
+                if self.compare_item() == 1:
+                    # print(
+                        # f'\nSWAPPED: current item {self._item} <-> next item {self._list[self._position]}')
+                    self.swap_item()
+                    # print(f'Item in possession: {self._item}')
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+                    self.set_light_off()  # Done swapping
+                if self.compare_item() == -1 or self.compare_item() == 0:
+                    # print(
+                        # f'Move right: current item {self._item} < next item {self._list[self._position]}')
+                    self.move_left()
+                    self.swap_item()
+                    self.move_right()
+
+            if self.light_is_on() == False:
+                while self.can_move_left():
+                    self.move_left()
+
+
+'''
+Pseudocode:
+Key - Light on means SWAP is occurring
+If no swaps occurred = list is sorted
+
+Edge case(s):
+If list has one item, well... It's already sorted.
+
+Start with light off
+While light is off and
+    While the robot can move right:
+        Pick up first item,
+        Move to the right
+        Start comparing item in possession to next item
+
+        compare_item() return values:
+        1:  If held item is GREATER than item to the right,
+            swap_item()
+            move_left()
+            swap_item()
+            move_right()
+            SWAP done -> turn light off and start while loop again
+        -1: If held item is LESS than item to the right,
+            Don't swap
+            Put the item back
+            move_left()
+            swap_item()
+            move_right()
+
+        0:  Same as -1
+
+    When robot reaches the end of list
+        While it can move left,
+            Move left
+
+'''
 
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
     # with `python robot_sort.py`
 
-    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1, 45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
+    l = [15, 41, 58, 49, 26, 4, 28, 8, 61, 60, 65, 21, 78, 14, 35, 90, 54, 5, 0, 87, 82, 96, 43, 92, 62, 97, 69, 94, 99, 93, 76, 47, 2, 88, 51, 40, 95, 6, 23, 81, 30, 19, 25, 91, 18, 68, 71, 9, 66, 1,
+         45, 33, 3, 72, 16, 85, 27, 59, 64, 39, 32, 24, 38, 84, 44, 80, 11, 73, 42, 20, 10, 29, 22, 98, 17, 48, 52, 67, 53, 74, 77, 37, 63, 31, 7, 75, 36, 89, 70, 34, 79, 83, 13, 57, 86, 12, 56, 50, 55, 46]
 
     robot = SortingRobot(l)
 
