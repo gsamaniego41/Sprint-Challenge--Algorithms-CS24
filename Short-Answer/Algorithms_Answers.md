@@ -36,6 +36,7 @@ c)  def bunnyEars(bunnies):
         return 0
 
       return 2 + bunnyEars(bunnies-1)
+
 # bunnies   5   6   7
 # recurse   6   7   8
 '''
@@ -45,3 +46,23 @@ This function is essentially a for loop. Therefore, it's O(n).
 ```
 
 ## Exercise II
+
+```python
+'''
+Problem Breakdown:
+- n-story building
+- list of eggs
+- flor f or higher = egg breaks
+- less than floor f = egg doesn't break
+'''
+
+'''
+Pseudocode:
+find the mid floor = num of floors // 2
+split floors into f1 and f2
+throw egg one floor below mid floor
+    if it breaks, eliminate f1
+    find mid floor of f2, splitting it in half
+repeat the process until we find the correct floor
+'''
+```
