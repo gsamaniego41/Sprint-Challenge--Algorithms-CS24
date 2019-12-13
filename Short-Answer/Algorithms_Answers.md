@@ -1,15 +1,47 @@
-#### Please add your answers to the ***Analysis of  Algorithms*** exercises here.
+#### Please add your answers to the **_Analysis of Algorithms_** exercises here.
 
 ## Exercise I
 
-a)
+```python
+a)  a = 0 # O(1)
+    while (a < n * n * n): # O(n)
+      a = a + n * n # O(1)
 
+'''
+Runtime: O(n)
+At first glance, it looks like O(n^3) but `(a < n * n * n)` does not exponentially increase the number of times it loops. It's simply a checker.
+''''
+```
 
-b)
+```python
+b)  sum = 0               #  O(1)
+    for i in range(n):    #  O(n)
+      j = 1               #  O(1)
+      while j < n:        #  O(log(n))
+        j *= 2            #  O(1)
+        sum += 1          #  O(1)
 
+10  10  10
+0   2   4
 
-c)
+'''
+Runtime: O(n log(n))
+Both outer loop and inner loop grow as n grows. However, the while loop runs half the time as the for loop because it doubles the size of j.
+''''
+```
+
+```python
+c)  def bunnyEars(bunnies):
+      if bunnies == 0:
+        return 0
+
+      return 2 + bunnyEars(bunnies-1)
+# bunnies   5   6   7
+# recurse   6   7   8
+'''
+Runtime: O(n)
+This function is essentially a for loop. Therefore, it's O(n).
+''''
+```
 
 ## Exercise II
-
-
